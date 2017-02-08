@@ -6,7 +6,7 @@
 
     <groupId>org.jmoney8080</groupId>
     <artifactId>offset-setter</artifactId>
-    <version>0.10.0.1-SNAPSHOT</version>
+    <version>0.10.0.1-1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -15,14 +15,14 @@
             <version>2.33</version>
         </dependency>
         <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-avro-serializer</artifactId>
-            <version>3.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
             <version>0.10.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.21</version>
         </dependency>
     </dependencies>
 

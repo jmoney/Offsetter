@@ -1,15 +1,17 @@
 package org.jmoney8080;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
-import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.Deserializer;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+import org.kohsuke.args4j.ParserProperties;
 
 import static org.kohsuke.args4j.OptionHandlerFilter.ALL;
 
@@ -17,9 +19,6 @@ import static org.kohsuke.args4j.OptionHandlerFilter.ALL;
  * @author jmonette
  */
 public class OffsetSetter {
-
-    @Option(name="--schema-registry", required = true, usage = "The schema registry url to connect too.  This is dumb but the underlying KafkaConsumer requires a schema registry url ")
-    private String schemaRegistryUrl;
 
     @Option(name="--bootstrap-servers", required = true, usage = "The kafka servers to connect too.")
     private String bootstrapServersUrl;
@@ -42,9 +41,7 @@ public class OffsetSetter {
     }
 
     private void doMain(String[] args) {
-        CmdLineParser parser = new CmdLineParser(this);
-
-//        parser.setUsageWidth(80);
+        CmdLineParser parser = new CmdLineParser(this, ParserProperties.defaults().withUsageWidth(80));
 
         try {
             parser.parseArgument(args);
@@ -62,11 +59,11 @@ public class OffsetSetter {
 
         final Properties props = new Properties();
         props.put("group.id", consumerGroup);
-        props.put("schema.registry.url", schemaRegistryUrl);
+        props.put("schema.registry.url", "dummy:dummy");
         props.put("bootstrap.servers", bootstrapServersUrl);
         props.put("auto.offset.reset", "none");
-        props.put("value.deserializer", KafkaAvroDeserializer.class.getName());
-        props.put("key.deserializer", KafkaAvroDeserializer.class.getName());
+        props.put("key.deserializer", MockDeserialzier.class.getName());
+        props.put("value.deserializer", MockDeserialzier.class.getName());
 
         TopicPartition topicPartition = new TopicPartition(topic, partition);
         Consumer consumer = new KafkaConsumer(props);
@@ -74,5 +71,23 @@ public class OffsetSetter {
         consumer.seek(topicPartition, offset);
         consumer.commitSync();
 
+    }
+
+    public static class MockDeserialzier implements Deserializer {
+
+        @Override
+        public void configure(Map map, boolean b) {
+
+        }
+
+        @Override
+        public Object deserialize(String s, byte[] bytes) {
+            return null;
+        }
+
+        @Override
+        public void close() {
+
+        }
     }
 }
