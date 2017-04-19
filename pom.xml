@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jmoney8080</groupId>
-    <artifactId>offset-setter</artifactId>
+    <artifactId>offsetter</artifactId>
     <version>0.10.0.1-1-SNAPSHOT</version>
 
     <dependencies>
@@ -63,7 +63,7 @@
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>org.jmoney8080.OffsetSetter</mainClass>
+                            <mainClass>org.jmoney8080.OffSetter</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>

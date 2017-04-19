@@ -18,7 +18,7 @@ import static org.kohsuke.args4j.OptionHandlerFilter.ALL;
 /**
  * @author jmonette
  */
-public class OffsetSetter {
+public class OffSetter {
 
     @Option(name="--bootstrap-servers", required = true, usage = "The kafka servers to connect too.")
     private String bootstrapServersUrl;
@@ -37,7 +37,7 @@ public class OffsetSetter {
 
 
     public static void main(String[] args) {
-        new OffsetSetter().doMain(args);
+        new OffSetter().doMain(args);
     }
 
     private void doMain(String[] args) {
@@ -47,12 +47,12 @@ public class OffsetSetter {
             parser.parseArgument(args);
         } catch( CmdLineException e ) {
             System.err.println(e.getMessage());
-            System.err.println("java -jar OffsetSetter [options...] arguments...");
+            System.err.println("java -jar OffSetter [options...] arguments...");
             parser.printUsage(System.err);
             System.err.println();
 
             // print option sample. This is useful some time
-            System.err.println("  Example: java -jar OffsetSetter"+parser.printExample(ALL));
+            System.err.println("  Example: java -jar OffSetter"+parser.printExample(ALL));
 
             return;
         }
